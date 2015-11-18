@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- package包指明对应的实体类的包路径 -->
+<hibernate-mapping package="com.ydcun.entity">
+<!-- 对应的包中的实体类名 -->
+    <class name="Users" table="t_user">
+    	<!-- 对应的自增主键 -->
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <!-- 对应其他列的name是实体类中的属性名，column属性对应的表中的字段可省略 ，当时关键字的时候额可以用反引号`引起来-->
+        <property name="name" />
+        <property name="password" />
+        <property name="age" />
+    </class>
+</hibernate-mapping>

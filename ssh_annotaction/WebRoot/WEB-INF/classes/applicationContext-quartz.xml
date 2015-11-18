@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+    
+    
+	<!-- 定时任务Bean -->
+	<bean id="firstQuartz" class="com.ydcun.quartz.FirstQuartz" />
+
+		<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="testDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="firstQuartz" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="doTestJob" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+
+	<!-- 定义触发时间 -->
+	<!-- quartz-1.8以前的配置 -->
+	<!-- 
+	<bean id="myJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"> 
+		<property name="jobDetail">
+			<ref bean="testDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
+		</property>
+	</bean>
+	 -->
+
+<!-- 	    		      每隔5秒执行一次：*/5 * * * * ? -->
+<!--                  每隔1分钟执行一次：0 */1 * * * ? -->
+<!--                  每天23点执行一次：0 0 23 * * ? -->
+<!--                  每天凌晨1点执行一次：0 0 1 * * ? -->
+<!--                  每月1号凌晨1点执行一次：0 0 1 1 * ? -->
+<!--                  每月最后一天23点执行一次：0 0 23 L * ? -->
+<!--                  每周星期天凌晨1点实行一次：0 0 1 ? * L -->
+<!--                  在26分、29分、33分执行一次：0 26,29,33 * * * ? -->
+<!--                  每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 * * ?  -->
+	<!-- quartz-2.x后的配置 -->
+	<bean id="myJobTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="testDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 */10 * * * ?</value>
+		</property>
+	</bean>
+	
+
+	<!-- 总管理类：如果lazy-init='false'，那么容器启动后就会执行调度程序 -->
+	<!-- 如果lazy-init='true'，则需要实例化该bean才能执行调度程序 -->
+	<bean name="testQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myJobTrigger" />
+			</list>
+		</property>
+		<!-- <property name="autoStartup" value="true"/> -->
+	</bean>
+
+
+</beans>
