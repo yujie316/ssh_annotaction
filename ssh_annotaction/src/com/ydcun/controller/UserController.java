@@ -21,9 +21,9 @@ import com.ydcun.service.IUserManage;
 @Controller
 @RequestMapping("/loginAction")
 public class UserController {
-	@Resource(name="userManage")
+	@Resource
 	private IUserManage userManage;
-	
+
 	@RequestMapping("/login")
 	public String addUser(Users user,HttpServletRequest request){
 		userManage.addUser(user);

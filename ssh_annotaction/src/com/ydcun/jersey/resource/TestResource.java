@@ -1,7 +1,9 @@
 package com.ydcun.jersey.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -10,10 +12,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ydcun.entity.Users;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.ydcun.entity.Users;
+import com.ydcun.service.IUserManage;
+
+@Component
 @Path("test")
 public class TestResource {
+	@Autowired
+	private IUserManage userManage;
+
 	@Path("getText")
 	@GET
 	@Produces("text/plain")
@@ -21,12 +31,17 @@ public class TestResource {
 		return "hello lucky";
 	}
 
-	@Path("getJson")
+	@Path("getAllUserfromJson")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)  
     @Produces(MediaType.APPLICATION_JSON) 
-	public Users getJson() {
-		return new Users("hi", 26, 62);
+	public List<Users> getJson() {
+		System.out.println("获取用户");
+		//return this.userManage.getAllUser();
+		Users u = new Users("ddd", 3, 3);
+		List<Users> list = new ArrayList<Users>();
+		list.add(u);
+		return list;
 	}
 	@Path("addUser")
 	@POST

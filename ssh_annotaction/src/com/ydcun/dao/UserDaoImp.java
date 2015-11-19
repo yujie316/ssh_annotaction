@@ -1,7 +1,10 @@
 package com.ydcun.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -39,6 +42,13 @@ public class UserDaoImp implements IUserDao {
 		System.out.println("-------UserDaoImp.deleteUser-----------"
 				+ user.getName());
 		getSession().delete(user);
+	}
+
+	@Override
+	public List<Users> findAllUser() {
+		String hql = "from Users";
+		Query query = getSession().createQuery(hql);
+		return query.list();
 	}
 
 }

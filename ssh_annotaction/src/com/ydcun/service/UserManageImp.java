@@ -36,8 +36,7 @@ public class UserManageImp implements IUserManage {
 
 	@Override
 	public List<Users> getAllUser() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.userDao.findAllUser();
 	}
 
 	@Override
