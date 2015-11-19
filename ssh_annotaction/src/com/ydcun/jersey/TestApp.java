@@ -12,7 +12,6 @@ import org.springframework.web.filter.RequestContextFilter;
 
 import com.ydcun.jersey.resource.TestResource;
 
-@ApplicationPath("/jars")
 public class TestApp extends ResourceConfig{
 
     public TestApp() {

@@ -17,12 +17,12 @@ import org.springframework.stereotype.Component;
 
 import com.ydcun.entity.Users;
 import com.ydcun.service.IUserManage;
+import com.ydcun.service.UserManageImpl;
 
-@Component
 @Path("test")
 public class TestResource {
 	@Autowired
-	private IUserManage userManage;
+    private UserManageImpl  userManageImpl;
 
 	@Path("getText")
 	@GET

@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.ydcun.entity.Users;
-@Repository("userDao")
+@Repository
 public class UserDaoImp implements IUserDao {
 	@Resource
 	private SessionFactory sessionFactory;

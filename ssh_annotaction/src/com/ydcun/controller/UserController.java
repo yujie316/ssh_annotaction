@@ -22,13 +22,13 @@ import com.ydcun.service.IUserManage;
 @RequestMapping("/loginAction")
 public class UserController {
 	@Resource
-	private IUserManage userManage;
+	private IUserManage userManageImp;
 
 	@RequestMapping("/login")
 	public String addUser(Users user,HttpServletRequest request){
-		userManage.addUser(user);
+		userManageImp.addUser(user);
 		request.setAttribute("message", "message");
-		this.userManage.getAllUser();
+		this.userManageImp.getAllUser();
 		return "login";
 	}
 	
@@ -40,7 +40,7 @@ public class UserController {
 		PrintWriter out = null;
 		response.setContentType("application/json");
 		
-		List<Users> userList = userManage.getAllUser();
+		List<Users> userList = userManageImp.getAllUser();
 		Gson gson = new Gson();
 		
 		try {
@@ -55,19 +55,19 @@ public class UserController {
 	}
 	@RequestMapping("/delUser")
 	public String delUser(String id,HttpServletRequest request){
-		userManage.deleteUser(id);
+		userManageImp.deleteUser(id);
 		request.setAttribute("message", "message");
 		return "person";
 	}
 	@RequestMapping("/getUserById")
 	public String getUserById(String id,HttpServletRequest request){
-		Users user = userManage.getUserById(id);
+		Users user = userManageImp.getUserById(id);
 		request.setAttribute("user", user);
 		return "updataUser";
 	}
 	@RequestMapping("/updataUser")
 	public String delUser(Users user,HttpServletRequest request){
-		userManage.updateUser(user);
+		userManageImp.updateUser(user);
 		request.setAttribute("message", "message");
 //		return "redirect:/user/getAllUser";
 		return "person";

@@ -9,34 +9,35 @@ import org.springframework.stereotype.Service;
 
 import com.ydcun.dao.IUserDao;
 import com.ydcun.entity.Users;
-@Service("userManage")
+@Service
 @Transactional
-public class UserManageImp implements IUserManage {
+public class UserManageImpl implements IUserManage {
 	
 	@Resource  
-	private IUserDao userDao;
+	private IUserDao UserDaoImp;
+	
 	
 	@Override
 	public void addUser(Users user) {
 		System.out.println("------UserManageImp.adddUser--------"+user.getName());
-		userDao.AddUser(user);
+		UserDaoImp.AddUser(user);
 	}
 
 	@Override
 	public void modifyUser(Users user) {
 		System.out.println("------UserManageImp.modifyUser--------"+user.getName());
-		userDao.modifyUser(user);
+		UserDaoImp.modifyUser(user);
 	}
 
 	@Override
 	public void deleteUser(Users user) {
 		System.out.println("------UserManageImp.deleteUser--------"+user.getName());
-		userDao.deleteUser(user);
+		UserDaoImp.deleteUser(user);
 	}
 
 	@Override
 	public List<Users> getAllUser() {
-		return this.userDao.findAllUser();
+		return this.UserDaoImp.findAllUser();
 	}
 
 	@Override
