@@ -28,6 +28,8 @@ public class TestResource {
 	@GET
 	@Produces("text/plain")
 	public String getText() {
+		// 实例化 
+		userManageImpl.getAllUser(); 
 		return "hello lucky";
 	}
 
